@@ -1,15 +1,14 @@
 # Data analysis for reproducible Research 
 # default options
 Sys.setlocale("LC_TIME", "English")
-opts_chunk$set(echo=TRUE, results='asis')
 # read the dataset
 wd<-getwd()
 fn<-paste(wd,"/activity.csv",sep = "")
 dset <- read.csv(fn, header = TRUE,stringsAsFactors=FALSE)
 # exam the structure
 str(dset)
-head(dset,n = 1000)
-tail(dset,n = 1000)
+head(dset,n = 10)
+tail(dset,n = 10)
 # transforming the variables
 # convert dates to proper type
 dset$date<-as.Date(dset$date)
@@ -50,8 +49,8 @@ xyplot(steps ~ interval, data=meanspinterval,col = "blue",
 # in the dataset, contains the maximum number of steps?
 maxed <- meanspinterval$interval[which.max(meanspinterval$steps)]
 maxed<-formatC(as.integer(as.character(maxed)),digits=0,width = 4,flag = "0")
-maxed<-paste(substr("Average daily activity is maximized at : ",maxed,1,2)," hours and ", substr(maxed,3,4)," minutes",sep="")
-
+repmax<-paste("Average daily activity is maximized at : ",substr(maxed,1,2)," hours and ", substr(maxed,3,4)," minutes",sep="")
+repmax
 # Imputing missing values
 # Note that there are a number of days/intervals where there are missing
 # values (coded as NA). The presence of missing days may introduce bias
@@ -88,13 +87,13 @@ par(mfrow=c(1,2))
 hist(stepspday$steps,breaks = 12,
      xlab = "No of steps / day",
      ylab = "% fraction of days",
-     main = "Total number of steps",
+     main = "Number of steps NAs ignored",
      col = "orange",border = "purple"
 )
 hist(fstepspday$steps,breaks = 12,
      xlab = "No of steps / day",
      ylab = "% fraction of days",
-     main = "Total number of steps NAs averaged per interval",
+     main = "Number of steps NAs averaged",
      col = "red",border = "black"
 )
 # mean and median with NA adjustment
@@ -131,5 +130,5 @@ xyplot(steps ~ interval | day, data=meanspday, type="l", grid=T, layout=c(1,2),
        ylab="Average steps", xlab="time intervals (5 mins)", 
        main="Average activity Weekdays vs. Weekends")
 
-
+# May the R be with you...
 
