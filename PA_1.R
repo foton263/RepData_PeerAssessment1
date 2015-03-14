@@ -130,5 +130,5 @@ xyplot(steps ~ interval | day, data=meanspday, type="l", grid=T, layout=c(1,2),
        ylab="Average steps", xlab="time intervals (5 mins)", 
        main="Average activity Weekdays vs. Weekends")
 
-# May the R be with you...
+## May the R be with you...
 
