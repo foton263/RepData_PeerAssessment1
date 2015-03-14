@@ -37,10 +37,19 @@ median(stepspday$steps, na.rm=TRUE)
 
 # What is the average daily activity pattern?
 
-# 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
-meanspinterval <- aggregate(steps ~ sInterval, data=dset, FUN="mean", na.exclude=T)
+# 1. Make a time series plot (i.e. type = "l") of the 
+# 5-minute interval (x-axis) and the average number of steps taken,
+# averaged across all days (y-axis)
 
-# 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
-
-
+dset$interval<-as.factor(dset$interval)
+meanspinterval <- aggregate(steps ~ interval, data=dset, FUN="mean", na.exclude=TRUE)
+library(lattice)
+xyplot(steps ~ interval, data=meanspinterval,col = "blue",
+       type="l", grid=TRUE, xlab="day time interval", 
+       ylab="Average steps",main="Averaged Daily Activity",)
+# 2. Which 5-minute interval, on average across all the days 
+# in the dataset, contains the maximum number of steps?
+maxed <- meanspinterval$interval[which.max(meanspinterval$steps)]
+maxed<-formatC(as.integer(as.character(maxed)),digits=0,width = 4,flag = "0")
+maxed<-paste(substr("Average daily activity is maximized at : ",maxed,1,2)," hours and ", substr(maxed,3,4)," minutes",sep="")
 
