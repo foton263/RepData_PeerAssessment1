@@ -123,7 +123,11 @@ table(dsetfill$day)
 # of the 5-minute interval (x-axis) and the average number of steps 
 # taken, averaged across all weekday days or weekend days (y-axis). 
 meanspday <- aggregate(steps ~ interval + day, data=dsetfill, FUN="mean")
-xyplot(steps ~ interval | day, data=meanspday, type="l", grid=T, layout=c(1,2), 
+x.tick.number <- 23
+at <- seq(1, nrow(meanspday), length.out=x.tick.number)
+labels <- round(seq(0, 47, length.out=x.tick.number))
+xyplot(steps ~ interval | day, data=meanspday, type="l", grid=T, layout=c(1,2),
+       scales=list(y=list(tick.number=10), x=list(at=at, labels=labels, rot=90)),
        ylab="Average steps", xlab="time intervals (5 mins)", 
        main="Average activity Weekdays vs. Weekends")
 
